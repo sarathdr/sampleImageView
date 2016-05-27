@@ -144,6 +144,12 @@ public class AlignedImageView extends ImageView {
      */
     private void setupScaleMatrix(int width, int height) {
 
+        // Make sure that the view frame has been drawn
+        if (width == 0 || height == 0) {
+            return;
+        }
+
+
         final Drawable drawable = getDrawable();
 
         // Do not do anything if the drawable is not set
@@ -154,12 +160,6 @@ public class AlignedImageView extends ImageView {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "Drawable loaded. Changing matrix");
         }
-
-
-        // We have to use our own matrix here to make
-        // ImageView.setImageMatrix(Matrix matrix) to call
-        // configureBounds(); invalidate();
-        final Matrix matrix = new Matrix();
 
         final int intrinsicWidth = drawable.getIntrinsicWidth();
         final int intrinsicHeight = drawable.getIntrinsicHeight();
@@ -196,6 +196,10 @@ public class AlignedImageView extends ImageView {
             Log.d(TAG, "Difference in Height: " + dy);
         }
 
+        // We have to use our own matrix here to make
+        // ImageView.setImageMatrix(Matrix matrix) to call
+        // configureBounds(); invalidate();
+        final Matrix matrix = new Matrix();
 
         // Scale the image and apply translation
         matrix.postScale(factor, factor, 0, 0);
@@ -210,8 +214,22 @@ public class AlignedImageView extends ImageView {
     @Override
     public void setImageDrawable(Drawable drawable) {
         super.setImageDrawable(drawable);
-        // We have to recalculate image after changing the image
-        setupScaleMatrix(getWidth(), getHeight());
+        // We have to recalculate image if the drawable changed from code
+        if (mAlignDrawable != null) {
+            setupScaleMatrix(getWidth(), getHeight());
+        }
+
+    }
+
+    @Override
+    protected boolean setFrame(int l, int t, int r, int b) {
+        boolean changed = super.setFrame(l, t, r, b);
+        if (changed) {
+            // Do not call this method if nothing changed
+            setupScaleMatrix(r - l, b - t);
+        }
+
+        return changed;
     }
 
 }
