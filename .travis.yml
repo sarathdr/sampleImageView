@@ -8,3 +8,7 @@ android:
 
 script:
    - ./gradlew build --stacktrace
+
+after_success:
+ - chmod +x ./upload.sh
+ - ./upload.sh
