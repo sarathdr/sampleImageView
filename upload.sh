@@ -12,6 +12,7 @@ git config --global user.name "sarathdr"
 cp -Rf $HOME/daily/* .
 
 # add, commit and push files
+git init
 git remote add origin https://github.com/sarathdr/sarathdr.github.io.git
 git add -f .
 git commit -m "Travis build $TRAVIS_BUILD_NUMBER pushed in daily channel"
