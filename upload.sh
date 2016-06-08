@@ -5,11 +5,11 @@ mkdir $HOME/daily/
 cp -R widget/build/outputs/aar/* $HOME/daily/
 
 
-# go to home and setup git
-cd $HOME
+# go to home/daily and setup git
+cd $HOME/daily/
+
 git config --global user.email "sarath.dr@gmail.com"
 git config --global user.name "sarathdr"
-cp -Rf $HOME/daily/* .
 
 # add, commit and push files
 git init
