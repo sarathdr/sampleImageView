@@ -8,10 +8,12 @@ android:
 script:
 - ./gradlew build --stacktrace
 
+
 deploy:
   provider: releases
   api_key:
     secure: U1is7buzcJQcJ1SqnVaiYpwhXH82ySCdWfFOEh9B9sQ4XP0qbGGML/IA/BqA+L/cGM7YhWxjTQSy0Mh8eEU0aei63zQHW7s8WPHvGjH+skW+SU3hjadhRBn+hNFmr0W7+69QWmqn0Nt8F0BKwAuLHE4NJ7MBzdrblmuktUuCnirEKvY/lcnQRxn43q9NFTRr8doGkxIM5QIqyjJNZ3+sM+1c9FoIJwL5mQwQjMgi5S+6hbvUe1UDvnZk4YMg7HqKBSAHhCR5ozATUHut7apzqQPNJVoLaDo9cJ+ib06V8/oI0x95d8Oaw9K5EGIg8Rf4AZs8QgeYLh2OzUhKcHs1ApXs3M6d78raavSMHGF/E/dk7ek5tYvl413niSFDbH0ws4KNXoB337FC9ar0EAimgsfRsF100BJuzNpPqUfmbF8OcBa3nLHjK5VTqWFvWxnrM3bwx2eUzAyCDm1uGHHNxpbjGtk/zwX+NlmWeuE1VR0jlfAzdaeGSUFS1IWkjUwk4ITR07H10Q301a4AemyQuZXoKxRECKzVWzx+Z513S79KBPSmrRrUlrdm11HA1Kfh3UpN4/LWFC4CELwpOGRas7u0af8Kz6m9kmf9SmIORKBCWxw5CYbAAwcDORiVuVL38GIPSioYlmVaztH9ikq6YuVqb5UOXJblMjlbf7jDClo=
+  file_glob: true
   file: widget/build/outputs/aar/widget-release-*.aar
   skip_cleanup: true
   on:
