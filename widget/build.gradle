@@ -1,21 +1,93 @@
+import java.text.SimpleDateFormat
+
 apply plugin: 'com.android.library'
 
 android {
+
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
 
     defaultConfig {
+
+        // Travis exposes tag name as system variable.
+        def buildNumber = System.getenv("TRAVIS_TAG")
+        def int code
+
+        if (buildNumber != null) {
+            // Compute version code from buildNumber
+            code = parseFromVersionNumber(buildNumber);
+        } else {
+            // If we don't have a real build version, we use "snapshot-{timestamp}-{username}" instead
+            buildNumber = getSnapshotVersionName()
+            code = 1
+        }
+
+        logger.info(">>>> versionName: " + buildNumber + ", versionCode: " + code);
+
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode code
+        versionName buildNumber
+
     }
+
+    libraryVariants.all { variant ->
+        variant.outputs.each { output ->
+            output.outputFile = new File(output.outputFile.parent, output.outputFile.name.replace(".aar",
+                    "-" + (defaultConfig.versionName.startsWith("snapshot") ? "snapshot" : defaultConfig.versionName)
+                            + ".aar"))
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+}
+
+/**
+ * Returns the version name to be used for local snapshot builds.
+ * It consists of the string "snapshot", the current date, and the user name, separated by dashes.
+ * Earlier we also included the time down to seconds.
+ * However, this breaks Instant Run which came with Android Studio 2.0.
+ *
+ * The result may look like this: snapshot-2016-02-22-rschuere
+ *
+ * @return version name for snapshot builds
+ */
+def getSnapshotVersionName() {
+    def version = "snapshot"
+
+    def sdf = new SimpleDateFormat("yyyy-MM-dd")
+    sdf.setTimeZone(TimeZone.getTimeZone("UTC"))
+    return version + '-' + sdf.format(new Date())
+}
+
+/**
+ * Generates a machine-readable version code from a version number in the format XXX.YYY.
+ * Version code has the format 2XXX1YYY and ranges from 20001000 to 29991999.
+ *
+ * For example, version 2.35 will give you versionCode 20021035
+ *
+ * @param versionNumber
+ * @return version number
+ */
+def parseFromVersionNumber(String versionNumber) {
+
+    def versionParts = versionNumber.tokenize('.')
+
+    if (versionParts.size != 2 || !versionParts[0].isNumber() || !versionParts[1].isNumber() ||
+            versionParts[0].toInteger() > 999 || versionParts[1].toInteger() > 999) {
+        throw new IllegalArgumentException('Invalid version number ' + "$versionNumber" + ' - must match format XXX.YYY')
+    }
+
+    int oldVersionOffset = 10000000
+
+    int versionCode = (1000 + versionParts[0].toInteger()) * 10000 + 1000 + versionParts[1].toInteger()
+
+    return versionCode + oldVersionOffset
 }
 
 dependencies {
