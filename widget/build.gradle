@@ -11,12 +11,9 @@ android {
 
         // Travis exposes tag name as system variable.
         def buildNumber = System.getenv("TRAVIS_TAG")
-
-        logger.info(">>>> versionName: " + buildNumber);
-
         def int code
 
-        if (buildNumber != null) {
+        if (buildNumber != null && !buildNumber.isEmpty()) {
             // Compute version code from buildNumber
             code = parseFromVersionNumber(buildNumber);
         } else {
