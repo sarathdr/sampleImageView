@@ -14,7 +14,7 @@
         android:id="@+id/image_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/app"
+        android:src="@drawable/img_to_align"
         img:alignDrawable="bottom_right" />
 
 </RelativeLayout>
