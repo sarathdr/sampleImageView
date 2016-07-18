@@ -20,6 +20,6 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     @Override
     public void onClick(View v) {
 
-        ((AlignedImageView) v).setImageDrawable(getResources().getDrawable(R.drawable.img_share_popup));
+        ((AlignedImageView) v).setImageDrawable(getResources().getDrawable(R.drawable.img_to_align));
     }
 }
