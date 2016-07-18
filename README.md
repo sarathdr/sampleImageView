@@ -14,6 +14,7 @@
   Example:
   
 ```xml
+      
       <com.sarath.widget.AlignedImageView
             android:id="@+id/image_view"
             android:layout_width="match_parent"
