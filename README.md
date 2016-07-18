@@ -13,7 +13,7 @@
   
   Example:
   
-  <code>
+```xml
       <com.sarath.widget.AlignedImageView
             android:id="@+id/image_view"
             android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             android:src="@drawable/img_to_align"
             img:alignDrawable="bottom_right" />
     
-  </code>
+```
   
   Align: **center_center**
   ![alt center_center](screens/center_center.png "Center Center")
