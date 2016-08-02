@@ -25,12 +25,12 @@
 ```
   
   Align: **center_center**
-  ![alt center_center](screens/center_center.png "Center Center")
+  ![alt center_center](http://sarathdr.github.io/img/imgViewLib/center_center.png "Center Center")
   
 
   Align: **bottom_left**
-    ![alt bottom_left](screens/bottom_left.png "Bottom Left")
+    ![alt bottom_left](http://sarathdr.github.io/img/imgViewLib/bottom_left.png "Bottom Left")
     
     
   Align: **bottom_right**
-    ![alt bottom_right](screens/bottom_right.png "Bottom Right")
+    ![alt bottom_right](http://sarathdr.github.io/img/imgViewLib/bottom_right.png "Bottom Right")
