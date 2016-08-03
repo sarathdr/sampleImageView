@@ -23,6 +23,20 @@
             img:alignDrawable="bottom_right" />
     
 ```
+
+Add library to gradle:
+
+```groovy
+
+maven {
+    url "https://dl.bintray.com/sarathdr/alignedimageview/"
+}
+
+
+dependencies {
+  compile 'com.sarath.widget:aligned-image:1.2@aar'
+}
+```
   
   Align: **center_center**
   ![alt center_center](http://sarathdr.github.io/img/imgViewLib/center_center.png "Center Center")
